@@ -11,7 +11,7 @@ I applied the [Udacity Git Commit Message Style Guide](https://udacity.github.io
 I also used [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/), hence the [Pipfile](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile) and [Pipfile.lock](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile.lock) in this repository.
 
 
-# Instructions
+## Instructions
 
 To run this project, you've to:
 
