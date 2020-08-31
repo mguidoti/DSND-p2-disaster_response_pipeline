@@ -6,9 +6,10 @@ In this project we build a model that predict categories of messages sent during
 
 ## Disclaimer
 
-I applied the [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/) in this repository.
+I applied the [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/) in this repository, with one addition to the type list: `file`, used when I uploaded or changed non-coding files, like the pickle file.
 
 I also used [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/), hence the [Pipfile](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile) and [Pipfile.lock](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile.lock) in this repository.
+
 
 # Instructions
 
