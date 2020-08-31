@@ -14,6 +14,7 @@ nltk = "*"
 sqlalchemy = "*"
 sklearn = "*"
 plotly = "*"
+flask = "*"
 
 [requires]
 python_version = "3.8"
