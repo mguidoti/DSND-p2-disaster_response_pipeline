@@ -23,6 +23,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier
 
 nltk.download(["punkt", "wordnet"])
 
@@ -38,7 +39,7 @@ def load_data(database_filepath):
     """
     engine = create_engine('sqlite:///' + database_filepath)
 
-    df = pd.read_sql('SELECT * FROM Message', engine)
+    df = pd.read_sql('SELECT * FROM Messages', engine)
 
     df2 = df.head(100)
 
@@ -74,13 +75,15 @@ def build_model():
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultiOutputClassifier(KNeighborsClassifier()))
+        #('clf', MultiOutputClassifier(KNeighborsClassifier()))
+        ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
 
     parameters = {
     'vect__max_df': [0.5, 0.7],
     'tfidf__use_idf': [True, False],
-    'clf__estimator__weights': ["uniform", "distance"],
+    #'clf__estimator__weights': ["uniform", "distance"],
+    'clf__estimator__n_estimators': [25, 50, 60]
     }
 
     grid_search = GridSearchCV(pipeline, param_grid=parameters)
