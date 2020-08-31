@@ -18,7 +18,6 @@ To run this project, you've to:
 - Then, run the ML pipeline: `python models/train_classifier.py data/DataResponse.db models/classifier.pkl`
 - And finally, run the web app: `python run.py`, which will be accessable on http://0.0.0.0:3001.
 
-https://github.com/nesreensada/Data-Scientist-Udacity-Nanodegree-Term2/blob/master/Disaster_Pipeline%20/models/train_classifier.py
 
 ## Acknowledgements
 
