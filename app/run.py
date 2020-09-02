@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Pie
 import joblib
 from sqlalchemy import create_engine
 
@@ -42,15 +42,29 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
+
+    # extract data for second chart
+    disaster_categories = (df[['genre', 'search_and_rescue',
+        'infrastructure_related', 'weather_related']]
+        .groupby('genre').sum())
+
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
+                # changed first chart for a pie chart
+                Pie(
+                    labels = genre_names,
+                    values = genre_counts,
+                    marker = {
+                        'colors': [
+                            '#DBDBDB',
+                            '#808080',
+                            '#383838',
+                        ]
+                    },
+                    sort = False
                 )
             ],
 
@@ -63,7 +77,44 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        {
+            'data': [
+                # add a second chart, bar chart, with the counts per
+                # message related type and genre
+                Bar(
+                    x = list(disaster_categories.index),
+                    y = disaster_categories['search_and_rescue'],
+                    name = 'Search & Rescue',
+                    marker_color = ['#DBDBDB', '#DBDBDB', '#DBDBDB']
+
+                ),
+                Bar(
+                    x = list(disaster_categories.index),
+                    y = disaster_categories['infrastructure_related'],
+                    name = 'Infrastructured',
+                    marker_color = ['#808080', '#808080', '#808080']
+                ),
+                Bar(
+
+                    x = list(disaster_categories.index),
+                    y = disaster_categories['weather_related'],
+                    name = 'Weather',
+                    marker_color = ['#383838', '#383838', '#383838']
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Message Related Types',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Genre"
+                }
+            }
         }
+
     ]
     
     # encode plotly graphs in JSON
