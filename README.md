@@ -10,6 +10,7 @@ I applied the [Udacity Git Commit Message Style Guide](https://udacity.github.io
 
 I also used [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/), hence the [Pipfile](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile) and [Pipfile.lock](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile.lock) in this repository.
 
+## Files
 
 ## Instructions
 
@@ -17,7 +18,7 @@ To run this project, you've to:
 
 - Run ETL pipeline first: `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
 - Then, run the ML pipeline: `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
-- And finally, run the web app: `python run.py`, which will be accessable on http://0.0.0.0:3001.
+- And finally, run the web app: `python app/run.py`, which will be accessable on http://127.0.0.1:3001.
 
 
 ## Acknowledgements
