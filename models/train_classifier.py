@@ -29,13 +29,15 @@ nltk.download(["punkt", "wordnet"])
 
 
 def load_data(database_filepath):
-    """[summary]
+    """Loads a sqlite database, returning the input and output varibles
 
     Args:
-        database_filepath ([type]): [description]
+        database_filepath (string): Filepath to a sqlite database
 
     Returns:
-        [type]: [description]
+        numpy.ndarray: X, set of input variables 
+        numpy.ndarray: y, set of output variables
+        numpy.ndarray: category_names, list of category names
     """
     engine = create_engine('sqlite:///' + database_filepath)
 
@@ -51,13 +53,14 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
-    """[summary]
+    """Reduce the words passed as parameter to their root form (stemming), and
+    matched them to their roots (lemmatization), returning the converted tokens
 
     Args:
-        text ([type]): [description]
+        text (string): Message to be tokenized
 
     Returns:
-        [type]: [description]
+        list: List of cleaned, tokenized words
     """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -71,10 +74,16 @@ def tokenize(text):
 
 
 def build_model():
+    """Build the model with Grid Search
 
+    Returns:
+        sklearn.model_selection: Model with the best parameter values possible
+            for the provided selection of parameters
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
+        # Commented this off because this classifier was taking too long to run
         #('clf', MultiOutputClassifier(KNeighborsClassifier()))
         ('clf', MultiOutputClassifier(AdaBoostClassifier()))
     ])
@@ -82,6 +91,7 @@ def build_model():
     parameters = {
     'vect__max_df': [0.5, 0.7],
     'tfidf__use_idf': [True, False],
+    # Commented this off because it's a KNeighborsClassifier parameter
     #'clf__estimator__weights': ["uniform", "distance"],
     'clf__estimator__n_estimators': [25, 50, 60]
     }
@@ -92,6 +102,14 @@ def build_model():
 
 
 def evaluate_model(model, X_test, y_test, category_names):
+    """Predict data based on the test set of the input variables
+
+    Args:
+        model (sklearn.model_selection): Model
+        X_test (numpy.ndarray): Test set of the input variables
+        y_test (pandas.DataFrame): Test set of the output variables
+        category_names (numpy.ndarray): List of category names
+    """
     y_pred = model.predict(X_test)
 
     for i, col in enumerate(category_names):
@@ -101,6 +119,12 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """Save the model in a pickle file determined by the user
+
+    Args:
+        model (sklearn.model_selection): Model
+        model_filepath (string): Filepath to save the pickle file
+    """
     joblib.dump(model, model_filepath)
 
 
