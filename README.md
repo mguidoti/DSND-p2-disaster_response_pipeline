@@ -11,6 +11,30 @@ I applied the [Udacity Git Commit Message Style Guide](https://udacity.github.io
 I also used [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/), hence the [Pipfile](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile) and [Pipfile.lock](https://github.com/mguidoti/DSND-p1-blog/blob/master/Pipfile.lock) in this repository.
 
 ## Files
+```
+|--app
+  |--templates
+    |--go.html
+    |--master.html
+  |--run.py                                 # Flask file that actually runs it
+|--data
+  |--disaster_categories.csv                # Raw data with all categories
+  |--disaster_messages.csv                  # Raw data with all messages
+  |--DisasterResponse.db                    # SQLite database with cleaned data
+  |--process_data.py                        # ETL Pipeline
+|--models
+  |--classifier.pkl                         # Pickle file with resulting model
+  |--train_classifier.py                    # ML Pipeline
+|--notebooks
+  |--ETL Pipeline Preparation.ipynb
+  |--ML Pipeline Preparation.ipynb
+|--.gitignore
+|--.App_README.md
+|--LICENSE
+|--Pipfile
+|--Pipfile.lock
+|--README.md
+```
 
 ## Instructions
 
