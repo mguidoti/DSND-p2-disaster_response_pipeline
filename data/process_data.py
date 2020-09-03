@@ -6,14 +6,14 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
-    """[summary]
+    """Load data from CSV files
 
     Args:
-        messages_filepath ([type]): [description]
-        categories_filepath ([type]): [description]
+        messages_filepath (string): Filepath to the messages file
+        categories_filepath (string): Filepath to the catagories file
 
     Returns:
-        [type]: [description]
+        pandas.DataFrame: DataFrame with both files merged
     """
     messages = pd.read_csv(messages_filepath, dtype=str)
     categories = pd.read_csv(categories_filepath, dtype=str)
@@ -25,13 +25,14 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
-    """[summary]
+    """Clean the provided data by converting 'catagories' column into individual
+    columns, correctly named, with binary values correctly converted to number
 
     Args:
-        df ([type]): [description]
+        df (pandas.DataFrame): DataFrame with the data
 
     Returns:
-        [type]: [description]
+        pandas.DataFrame: DataFrame with the converted data
     """
     # Create a temp df to manipulate categories data
     categories = df["categories"].str.split(";", expand=True)
@@ -61,11 +62,12 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    """[summary]
+    """Save the data in a SQLite database
 
     Args:
-        df ([type]): [description]
-        database_filename ([type]): [description]
+        df (pandas.DataFrame): DataFrame containing the cleaned data
+        database_filename (string): Filepath to save the transformed data in a
+            sqlite database
     """
     # Create db engine
     engine = create_engine('sqlite:///' + database_filename)
