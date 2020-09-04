@@ -26,18 +26,18 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///./data/DisasterResponse.db')
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql('SELECT * FROM Messages', engine)
 
 # load model
-model = joblib.load("./models/classifier.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
 def index():
-    
+
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
